@@ -1,6 +1,7 @@
 #include "ABP.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct no{
     int chave;
@@ -13,13 +14,12 @@ struct arvore{
     struct no *sentinela;
     int length;
 };
-
+//fazer sentinela ser o nó raiz?
 
 
 arvore* criaArvore(){
     arvore *A = (arvore*) malloc (sizeof(arvore));
-    no *sentinela = (no*) malloc (sizeof(no));
-    A->sentinela = sentinela;
+    A->sentinela = (no*) malloc (sizeof(no));
     A->length = 0;
 
 
@@ -32,7 +32,13 @@ arvore* criaArvore(){
 
 
 void insereNo(arvore *A, int chave){
+    if(verificaRepeticao(A, chave)){
+        printf("VALOR REPETIDO\n");    
+        return;
+    } 
 
+
+    
     A->length++;
     no *atual = A->sentinela->dir;
     no *ant = NULL;
@@ -109,6 +115,22 @@ void percorreArvorePosOrdem(no *raiz){
         printf("%d ", raiz->chave);
     }
     
+}
+
+// bool verificaRepeticao(no *raiz, int chave){
+//     if (raiz != NULL){
+//         verificaRepeticao(raiz->esq, chave);
+//         if(chave ==  raiz->chave) return true;
+//         verificaRepeticao(raiz->dir, chave);
+//     }
+// }
+bool verificaRepeticao(arvore *A, int chave){
+    no *valorBuscado = retornaNo(A, chave);
+
+    if(valorBuscado != NULL)
+        return true;
+    else
+        return false;
 }
 
 void apagaArvore(no *noArvore){

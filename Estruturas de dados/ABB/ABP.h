@@ -1,6 +1,4 @@
-//
-// Created by vanes on 11/06/2021.
-//
+#include <stdbool.h>
 
 #ifndef ABP_H
 #define ABP_H
@@ -22,9 +20,21 @@ void insereArquivo(arvore *A, char nomeArquivo[]);
 void removeNo(arvore *A, int chave);
 //Remove um nó da árvore. O valor a ser removido está no atributo chave.
 
-void percorreArvore(no *raiz);
+void percorreArvoreEmOrdem(no *raiz);
 //Imprime na tela o percorrimento em ordem na árvore.
 //Os elementos devem ser impressos em linha, com um espaço entre eles.
+
+void percorreArvorePreOrdem(no *raiz);
+//Imprime na tela o percorrimento em pré ordem na árvore.
+//Os elementos devem ser impressos em linha, com um espaço entre eles.
+
+void percorreArvorePosOrdem(no *raiz);
+//Imprime na tela o percorrimento em pós ordem na árvore.
+//Os elementos devem ser impressos em linha, com um espaço entre eles.
+
+bool verificaRepeticao(arvore *A, int chave);
+
+void apagaArvore(no *noArvore);
 
 no *retornaRaiz(arvore *A);
 //Retorna a raiz da árvore a partir da sentinela.
@@ -39,6 +49,5 @@ void imprimeDados(no *elemento);
 //Dir:xx
 //Pai:xx
 //Se o filho da esquerda e/ou da direita for nulo, escreve "NULO"
-
 
 #endif //ABP_H
