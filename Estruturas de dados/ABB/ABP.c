@@ -117,13 +117,6 @@ void percorreArvorePosOrdem(no *raiz){
     
 }
 
-// bool verificaRepeticao(no *raiz, int chave){
-//     if (raiz != NULL){
-//         verificaRepeticao(raiz->esq, chave);
-//         if(chave ==  raiz->chave) return true;
-//         verificaRepeticao(raiz->dir, chave);
-//     }
-// }
 bool verificaRepeticao(arvore *A, int chave){
     no *valorBuscado = retornaNo(A, chave);
 
