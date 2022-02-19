@@ -11,21 +11,16 @@ struct no{
 };
 
 struct arvore{
-    struct no *sentinela;
+    struct no *primeiroElemento;
     int length;
 };
 
 
 arvore* criaArvore(){
     arvore *A = (arvore*) malloc (sizeof(arvore));
-    A->sentinela = (no*) malloc (sizeof(no));
+    A->primeiroElemento = NULL;
     A->length = 0;
 
-
-    A->sentinela->esq = NULL;
-    A->sentinela->dir = NULL;
-    A->sentinela->pai = NULL;
-    A->sentinela->chave = -1000;
     return A;
 }
 
@@ -40,7 +35,7 @@ void insereNo(arvore *A, int chave){
 
     
     A->length++;
-    no *atual = A->sentinela->dir;
+    no *atual = A->primeiroElemento;
     no *ant = NULL;
     no *novo = (no*) malloc (sizeof(no));
     novo->dir = NULL;
@@ -58,8 +53,8 @@ void insereNo(arvore *A, int chave){
 
         if (ant == NULL){
             printf("inserindo primeiro elemento\n\n");
-            A->sentinela->dir = novo;
-            novo->pai = A->sentinela;
+            A->primeiroElemento = novo;
+            novo->pai = NULL;
         }
 
         else {
@@ -150,12 +145,12 @@ void imprimeDados(no *elemento){
 
 
 no *retornaRaiz(arvore *A){
-    return A->sentinela->dir;
+    return A->primeiroElemento;
 }
 
 
 no *retornaNo(arvore *A, int chave){
-    no *atual = A->sentinela->dir;
+    no *atual = A->primeiroElemento;
 
     while (atual != NULL) {
         if (atual->chave == chave) return atual;
@@ -168,7 +163,7 @@ no *retornaNo(arvore *A, int chave){
 
 void removeNo(arvore *A, int chave){ 
     no * pai;
-    no *pt = A->sentinela->dir;
+    no *pt = A->primeiroElemento;
     no *ptaux;
     /* a busca */
     do{ 
@@ -177,8 +172,8 @@ void removeNo(arvore *A, int chave){
             pt = pt ->esq ;
         else if ( chave > pt-> chave) 
                 pt = pt->dir;
-            else
-                pai = pt->pai;
+            // else
+            //     pai = pt->pai;
          
     } while((pt != NULL) && (pt->chave != chave));
 
@@ -203,6 +198,9 @@ void removeNo(arvore *A, int chave){
 
         if ((pt->esq != NULL) && (pt->dir == NULL)){
             /* só tem o filho esq */
+            if(pai == pt)
+                A->primeiroElemento = pt->esq;
+            
             if (pai->esq == pt){ 
                 pai->esq = pt->esq;
                 // pt->esq->pai = pai;
@@ -213,6 +211,9 @@ void removeNo(arvore *A, int chave){
                 }
          }else if ((pt->esq == NULL) && (pt->dir != NULL)){
                 /* só tem o filho direito */
+                if(pai == pt)
+                    A->primeiroElemento = pt->dir;
+                
                 if (pai->esq == pt){
                     pai->esq = pt->dir;
                     pt->dir->pai = pai;

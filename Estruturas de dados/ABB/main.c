@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ABP.h"
-#include "ABP.c"
+#include "ABP-semSentinela.c"
 
 void main(){
     int valor = 0;
@@ -23,7 +23,7 @@ void main(){
     system("cls");
 
     printf("O tamanho da arvore e: %d\n", A->length);
-    percorreArvoreEmOrdem(A->sentinela->dir); //tá de boa
+    percorreArvoreEmOrdem(A->primeiroElemento); //tá de boa
     printf("\n");
 
     printf("Digite um valor para ser removido da arvore: ");
@@ -31,7 +31,7 @@ void main(){
     removeNo(A, valor);
     
     printf("\n\nO tamanho da arvore e: %d\n", A->length);
-    percorreArvoreEmOrdem(A->sentinela->dir); //tá de boa
+    percorreArvoreEmOrdem(A->primeiroElemento); //tá de boa
 
     printf("\nDigite o valor a ser buscado: ");
     scanf("%d", &valor);
