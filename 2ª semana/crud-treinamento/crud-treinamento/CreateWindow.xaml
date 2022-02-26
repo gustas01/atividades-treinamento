@@ -5,23 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:crud_treinamento" d:DataContext="{d:DesignInstance Type=local:MainWindowVM}"
         mc:Ignorable="d"
-        Title="CreateWindow" Height="204" Width="414">
+        Title="CreateWindow" Height="195" Width="414">
     <Grid Margin="0,0,0,-6">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="414"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="409*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox Text="{Binding Nome}" HorizontalAlignment="Left" Margin="21,44,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="100" Height="18"/>
+        <TextBox Text="{Binding Nome}" HorizontalAlignment="Left" Margin="21,44,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="100" Height="18" TextChanged="TextBox_TextChanged"/>
         <Label Content="Nome" HorizontalAlignment="Left" Margin="21,18,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="43"/>
         <TextBox Text="{Binding Preco}" HorizontalAlignment="Center" Margin="0,44,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="18"/>
         <Label Content="Preço" HorizontalAlignment="Left" Margin="158,18,0,0" VerticalAlignment="Top" Grid.Row="1" Height="26" Width="40"/>
         <TextBox Text="{Binding Marca}" HorizontalAlignment="Left" Margin="291,44,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="100" Height="18"/>
         <Label Content="Marca" HorizontalAlignment="Left" Margin="291,18,0,0" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="45"/>
-        <Button Content="Create" HorizontalAlignment="Center" Margin="0,77,0,0" Grid.Row="1" VerticalAlignment="Top" Width="62" Background="#FF1DCC0F" Height="20" Click="Button_Click"/>
+        <Button Content="Salvar" HorizontalAlignment="Center" Margin="0,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="62" Background="#FF1DCC0F" Height="20" Click="Button_Click"/>
+        <ComboBox SelectedValuePath="Content" SelectedValue="{Binding Tipo}" HorizontalAlignment="Left" Margin="21,96,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem Content="Limpeza"/>
+            <ComboBoxItem Content="Bebidas"/>
+            <ComboBoxItem Content="Laticinios"/>
+        </ComboBox>
+        <Label Content="Tipo" HorizontalAlignment="Left" Margin="21,72,0,0" Grid.Row="1" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

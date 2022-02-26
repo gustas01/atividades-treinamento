@@ -12,27 +12,40 @@ namespace crud_treinamento
     internal class MainWindowVM : INotifyPropertyChanged
     {
 
-        public ObservableCollection<ProdutoLimpeza> produtosLimpeza { get; set; }
+        public ObservableCollection<Produto> produtos { get; set; }
+        public ObservableCollection<Produto> produtosFiltrados { get; set; }
+        List<Produto> produtosListaFiltrados;
+
+
         public ICommand adiciona { get; set; }
         public ICommand remove { get; set; }
         public ICommand update { get; set; }
-        public ProdutoLimpeza produtoSelecionado { get; set; }
+        public ICommand filtrar { get; set; }
+
+
+        public Produto produtoSelecionado { get; set; }
+
+        public string dadoFiltro { get; set; }                                                                                                       
+
+
+
 
         public MainWindowVM()
         {
-            produtosLimpeza = new ObservableCollection<ProdutoLimpeza>();
-
+            produtos = new ObservableCollection<Produto>();
+            produtosFiltrados = new ObservableCollection<Produto>();
 
             adiciona = new RelayCommand((object objeto) =>
             {
                 CreateWindow window = new CreateWindow();
 
-                ProdutoLimpeza produto = new ProdutoLimpeza();
+                Produto produto = new Produto();
                 window.DataContext = produto;
                 window.ShowDialog();
 
 
-                produtosLimpeza.Add(produto);               
+                produtos.Add(produto);
+                produtosFiltrados.Add(produto);
             });
 
             update = new RelayCommand((object objeto) =>
@@ -41,17 +54,77 @@ namespace crud_treinamento
 
                 window.DataContext = produtoSelecionado;
                 window.ShowDialog();
-                ProdutoLimpeza produtoAux = produtoSelecionado;
-                produtosLimpeza.Remove(produtoSelecionado);
+                Produto produtoAux = produtoSelecionado;
+                produtos.Remove(produtoSelecionado);
+                produtosFiltrados.Remove(produtoSelecionado);
 
-                produtosLimpeza.Add(produtoAux);
+                produtos.Add(produtoAux);
+                produtosFiltrados.Add(produtoAux);
+
             });
 
             remove = new RelayCommand((object objeto) =>
             {
-                produtosLimpeza.Remove(produtoSelecionado);
+                produtos.Remove(produtoSelecionado);
+                produtosFiltrados.Remove(produtoSelecionado);
             });
+
+            filtrar = new RelayCommand((object objeto) =>
+            {
+                produtosListaFiltrados = new List<Produto>();
+
+
+                for (int i = 0; i < produtos.Count; i++)
+                {
+                    if (!produtosListaFiltrados.Contains(produtos[i]))
+                        produtosListaFiltrados.Add(produtos[i]);
+
+                    if (!produtosFiltrados.Contains(produtos[i]))
+                        produtosFiltrados.Add(produtos[i]);
+                    
+                }
+               
+                switch (dadoFiltro)
+                {
+                    case "Limpeza":
+                        produtosListaFiltrados = produtosListaFiltrados.Where(prod => prod.Tipo == "Limpeza").ToList();
+
+                            for(int j = produtosFiltrados.Count-1; j >=0; j--)
+                                if (!produtosListaFiltrados.Contains(produtosFiltrados[j]))
+                                    produtosFiltrados.Remove(produtosFiltrados[j]);
+                        break;
+
+                    case "Bebidas":
+                        produtosListaFiltrados = produtosListaFiltrados.Where(prod => prod.Tipo == "Bebidas").ToList();
+
+                        for (int j = produtosFiltrados.Count - 1; j >= 0; j--)
+                            if (!produtosListaFiltrados.Contains(produtosFiltrados[j]))
+                                produtosFiltrados.Remove(produtosFiltrados[j]);
+                        break;
+
+                    case "Laticinios":
+                        produtosListaFiltrados = produtosListaFiltrados.Where(prod => prod.Tipo == "Laticinios").ToList();
+
+                        for (int j = produtosFiltrados.Count - 1; j >= 0; j--)
+                            if (!produtosListaFiltrados.Contains(produtosFiltrados[j]))
+                                produtosFiltrados.Remove(produtosFiltrados[j]);
+                        break;
+
+                    default:
+                        for (int i = 0; i < produtos.Count; i++)
+                         if (!produtosFiltrados.Contains(produtos[i]))
+                                produtosFiltrados.Add(produtos[i]);
+                        
+                        break;
+                }
+            });
+            
+            
         }
+
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

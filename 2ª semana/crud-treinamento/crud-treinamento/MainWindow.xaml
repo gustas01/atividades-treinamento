@@ -12,17 +12,26 @@
             <RowDefinition Height="110*"/>
         </Grid.RowDefinitions>
         <Button Command="{Binding adiciona}" Content="Create" HorizontalAlignment="Left" Margin="264,23,0,0" VerticalAlignment="Top" Click="Button_Click" Width="80" Background="#FF57BB15"/>
-        <ListView x:Name="itens" ItemsSource="{ Binding produtosLimpeza}" SelectedItem="{Binding produtoSelecionado}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="itens_SelectionChanged" Grid.RowSpan="2" Margin="264,122,264,10">
+        <ListView ItemsSource="{ Binding produtosFiltrados}" SelectedItem="{Binding produtoSelecionado}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="itens_SelectionChanged" Grid.RowSpan="2" Margin="264,122,264,10">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Nome}" />
                     <GridViewColumn DisplayMemberBinding="{Binding Preco}" />
                     <GridViewColumn DisplayMemberBinding="{Binding Marca}" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Tipo}" />
+
                 </GridView>
             </ListView.View>
         </ListView>
         <Button Command="{Binding update}" x:Name="update" Content="Update" HorizontalAlignment="Center" Margin="0,23,0,0" VerticalAlignment="Top" Background="#FFCEC711" Click="update_Click" Width="80"/>
-        <Button IsEnabled="{Binding produtosLimpeza.Count}" Content="Delete" Command="{Binding remove}" HorizontalAlignment="Left" Margin="456,23,0,0" VerticalAlignment="Top" Width="80" Background="#FFDE0D0D" Click="Button_Click_1"/>
+        <Button IsEnabled="{Binding produtosFiltrados.Count}" Content="Delete" Command="{Binding remove}" HorizontalAlignment="Left" Margin="456,23,0,0" VerticalAlignment="Top" Width="80" Background="#FFDE0D0D" Click="Button_Click_1"/>
+        <ComboBox SelectedValuePath="Content" SelectedValue="{Binding dadoFiltro}" HorizontalAlignment="Left" Height="28" Margin="264,79,0,0" VerticalAlignment="Top" Width="117" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem Content="TODOS"/>
+            <ComboBoxItem Content="Limpeza"/>
+            <ComboBoxItem Content="Bebidas"/>
+            <ComboBoxItem Content="Laticinios"/>
+        </ComboBox>
+        <Button Command="{Binding filtrar}" Content="Filtrar" HorizontalAlignment="Left" Margin="444,80,0,0" VerticalAlignment="Top" Width="92" Background="#FFFF8354" Height="27"/>
         <!--<TextBox Text="{Binding produtoNome}" HorizontalAlignment="Left" Margin="264,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80">
             <TextBox.RenderTransform>
                 <TransformGroup>

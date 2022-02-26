@@ -30,5 +30,20 @@ namespace crud_treinamento
             
             DialogResult = true;
         }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

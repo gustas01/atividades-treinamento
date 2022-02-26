@@ -58,6 +58,8 @@
     <Compile Include="CreateWindow.xaml.cs">
       <DependentUpon>CreateWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProdutoBebidas.cs" />
+    <Compile Include="ProdutoLaticinio.cs" />
     <Compile Include="RelayCommand.cs" />
     <Page Include="CreateWindow.xaml">
       <SubType>Designer</SubType>

@@ -50,5 +50,10 @@ namespace crud_treinamento
         {
             
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -8,18 +8,20 @@ namespace crud_treinamento
 {
     public class ProdutoLimpeza : Produto
     {
-        private String marca { get; set; }
-        
+        private String cheiro;
+        private bool habilitado;
         public ProdutoLimpeza()
         {
 
         }
 
-        public ProdutoLimpeza(string nome, float preco, string marca)
+        public ProdutoLimpeza(string nome, float preco, string marca, string cheiro)
         {
             this.nome = nome;
             this.preco = preco;
             this.marca = marca;
+            this.cheiro = cheiro;
+
         }
 
         public String Nome
@@ -43,6 +45,18 @@ namespace crud_treinamento
             set{ this.marca = value; }
         }
 
-        
+        public String Cheiro
+        {
+            get { return this.cheiro; }
+            set { this.cheiro = value; }
+        }
+
+        public bool Habilitado
+        {
+            get { return this.habilitado; }
+            set { this.habilitado = value; }
+        }
+
+
     }
 }
