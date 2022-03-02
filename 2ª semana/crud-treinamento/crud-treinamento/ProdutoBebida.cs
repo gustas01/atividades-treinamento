@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace crud_treinamento
 {
-    internal class ProdutoBebidas : Produto
+    internal class ProdutoBebida : Produto
     {
 
         private bool alcoolica;
-        private bool habilitado;
 
-        public ProdutoBebidas()
+        public ProdutoBebida()
         {
 
         }
 
-        public ProdutoBebidas(string nome, float preco, string marca, bool alcoolica)
+        public ProdutoBebida(string nome, float preco, string marca, bool alcoolica)
         {
             this.nome = nome;
             this.preco = preco;
@@ -50,12 +49,6 @@ namespace crud_treinamento
         {
             get { return this.alcoolica; }
             set { this.alcoolica = value; }
-        }
-
-        public bool Habilitado
-        {
-            get { return this.habilitado; }
-            set { this.habilitado = value; }
         }
 
 

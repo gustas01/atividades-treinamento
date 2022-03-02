@@ -16,3 +16,9 @@ C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\obj\Debug\crud-t
 C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\obj\Debug\crud-treinamento.csproj.CoreCompileInputs.cache
 C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\obj\Debug\crud-treinamento.exe
 C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\obj\Debug\crud-treinamento.pdb
+C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\obj\Debug\CreateWindowProdutoBebida.g.cs
+C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\obj\Debug\CreateWindowProdutoBebida.baml
+C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\obj\Debug\CreateWindowProdutoLimpeza.g.cs
+C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\obj\Debug\CreateWindowProdutoLaticinio.g.cs
+C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\obj\Debug\CreateWindowProdutoLimpeza.baml
+C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\obj\Debug\CreateWindowProdutoLaticinio.baml

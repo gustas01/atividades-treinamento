@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:crud_treinamento" d:DataContext="{d:DesignInstance Type=local:MainWindowVM}"
         mc:Ignorable="d"
         Title="CreateWindow" Height="195" Width="414">
-    <Grid Margin="0,0,0,-6">
+    <Grid Margin="0,0,0,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="414"/>
             <ColumnDefinition Width="0*"/>

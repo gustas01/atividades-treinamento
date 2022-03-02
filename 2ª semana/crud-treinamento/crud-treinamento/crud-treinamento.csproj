@@ -58,10 +58,31 @@
     <Compile Include="CreateWindow.xaml.cs">
       <DependentUpon>CreateWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProdutoBebidas.cs" />
+    <Compile Include="CreateWindowProdutoBebida.xaml.cs">
+      <DependentUpon>CreateWindowProdutoBebida.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateWindowProdutoLaticinio.xaml.cs">
+      <DependentUpon>CreateWindowProdutoLaticinio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateWindowProdutoLimpeza.xaml.cs">
+      <DependentUpon>CreateWindowProdutoLimpeza.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProdutoBebida.cs" />
     <Compile Include="ProdutoLaticinio.cs" />
     <Compile Include="RelayCommand.cs" />
     <Page Include="CreateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateWindowProdutoBebida.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateWindowProdutoLaticinio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateWindowProdutoLimpeza.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

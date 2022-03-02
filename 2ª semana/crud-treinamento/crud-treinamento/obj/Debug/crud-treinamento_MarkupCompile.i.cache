@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Gustavo\source\repos\crud-treinamento\crud-treinamento\App.xaml
-21724726139
+51377057601
 
-13-1447691835
+16521279060
 13-1310406943
-CreateWindow.xaml;MainWindow.xaml;
+CreateWindow.xaml;CreateWindowProdutoBebida.xaml;CreateWindowProdutoLaticinio.xaml;CreateWindowProdutoLimpeza.xaml;MainWindow.xaml;
 
-False
+True
 

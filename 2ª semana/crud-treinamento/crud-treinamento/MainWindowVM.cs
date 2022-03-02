@@ -14,6 +14,9 @@ namespace crud_treinamento
 
         public ObservableCollection<Produto> produtos { get; set; }
         public ObservableCollection<Produto> produtosFiltrados { get; set; }
+        public ObservableCollection<ProdutoLimpeza> listaProdutosLimpeza { get; set; }
+        public ObservableCollection<ProdutoBebida> listaProdutosBebida { get; set; }
+        public ObservableCollection<ProdutoLaticinio> listaProdutosLaticinio { get; set; }
         List<Produto> produtosListaFiltrados;
 
 
@@ -25,8 +28,8 @@ namespace crud_treinamento
 
         public Produto produtoSelecionado { get; set; }
 
-        public string dadoFiltro { get; set; }                                                                                                       
-
+        public string dadoFiltro { get; set; }
+        public string dadoTipoCreate { get; set; }
 
 
 
@@ -34,37 +37,124 @@ namespace crud_treinamento
         {
             produtos = new ObservableCollection<Produto>();
             produtosFiltrados = new ObservableCollection<Produto>();
+            listaProdutosLimpeza = new ObservableCollection<ProdutoLimpeza>();
+            listaProdutosBebida = new ObservableCollection<ProdutoBebida>();
+            listaProdutosLaticinio = new ObservableCollection<ProdutoLaticinio>();
 
             adiciona = new RelayCommand((object objeto) =>
             {
-                CreateWindow window = new CreateWindow();
+                switch (dadoTipoCreate)
+                {
+                    case "Limpeza":
+                        CreateWindowProdutoLimpeza windowlimpeza = new CreateWindowProdutoLimpeza();
 
-                Produto produto = new Produto();
-                window.DataContext = produto;
-                window.ShowDialog();
+                        ProdutoLimpeza produtoLimpeza = new ProdutoLimpeza();
+                        windowlimpeza.DataContext = produtoLimpeza;
+                        windowlimpeza.ShowDialog();
+
+                        produtoLimpeza.Tipo = "Limpeza";
+                        produtos.Add(produtoLimpeza);
+                        produtosFiltrados.Add(produtoLimpeza);
+                        listaProdutosLimpeza.Add(produtoLimpeza);
+                       
+                        break;
+
+                    case "Bebida":
+                        CreateWindowProdutoBebida windowBebida = new CreateWindowProdutoBebida();
+
+                        ProdutoBebida produtoBebida = new ProdutoBebida();
+                        windowBebida.DataContext = produtoBebida;
+                        windowBebida.ShowDialog();
+
+                        produtoBebida.Tipo = "Bebida";
+                        produtos.Add(produtoBebida);
+                        produtosFiltrados.Add(produtoBebida);
+                        listaProdutosBebida.Add(produtoBebida);
+                        break;
+
+                    case "Laticinio":
+                        CreateWindowProdutoLaticinio windowLaticinio = new CreateWindowProdutoLaticinio();
+
+                        ProdutoLaticinio produtoLaticinio = new ProdutoLaticinio();
+                        windowLaticinio.DataContext = produtoLaticinio;
+                        windowLaticinio.ShowDialog();
+
+                        produtoLaticinio.Tipo = "Laticinio";
+                        produtos.Add(produtoLaticinio); 
+                        produtosFiltrados.Add(produtoLaticinio);
+                        listaProdutosLaticinio.Add(produtoLaticinio);
+                        break;
+                }
+                //CreateWindow window = new CreateWindow();
+
+                //Produto produto = new Produto();
+                //window.DataContext = produto;
+                //window.ShowDialog();
 
 
-                produtos.Add(produto);
-                produtosFiltrados.Add(produto);
+                //produtos.Add(produto);
+                //produtosFiltrados.Add(produto);
             });
 
             update = new RelayCommand((object objeto) =>
             {
-                CreateWindow window = new CreateWindow();
+                //CreateWindow window = new CreateWindow();
 
-                window.DataContext = produtoSelecionado;
-                window.ShowDialog();
+                //window.DataContext = produtoSelecionado;
+                //window.ShowDialog();
+
                 Produto produtoAux = produtoSelecionado;
-                produtos.Remove(produtoSelecionado);
-                produtosFiltrados.Remove(produtoSelecionado);
 
-                produtos.Add(produtoAux);
-                produtosFiltrados.Add(produtoAux);
+                switch (produtoSelecionado.Tipo)
+                {
+                    case "Limpeza":
+                        CreateWindowProdutoLimpeza windowLimpeza = new CreateWindowProdutoLimpeza();
+
+                        windowLimpeza.DataContext = produtoSelecionado;
+                        windowLimpeza.ShowDialog();
+                        break;
+
+                    case "Bebida":
+                        CreateWindowProdutoLimpeza windowBebida = new CreateWindowProdutoLimpeza();
+
+                        windowBebida.DataContext = produtoSelecionado;
+                        windowBebida.ShowDialog();
+                        break;
+
+                    case "Laticinio":
+                        CreateWindowProdutoLimpeza windowLaticinio = new CreateWindowProdutoLimpeza();
+
+                        windowLaticinio.DataContext = produtoSelecionado;
+                        windowLaticinio.ShowDialog();
+                        break;
+
+                }
+
+                //produtos.Remove(produtoSelecionado);
+                //produtosFiltrados.Remove(produtoSelecionado);
+
+                //produtos.Add(produtoAux);
+                //produtosFiltrados.Add(produtoAux);
 
             });
 
             remove = new RelayCommand((object objeto) =>
             {
+                switch (produtoSelecionado.Tipo)
+                {
+                    case "Limpeza":
+                        listaProdutosLimpeza.Remove((ProdutoLimpeza)produtoSelecionado);
+                        break;
+
+                    case "Bebida":
+                        listaProdutosBebida.Remove((ProdutoBebida)produtoSelecionado);
+                        break;
+
+                    case "Laticinio":
+                        listaProdutosLaticinio.Remove((ProdutoLaticinio)produtoSelecionado);
+                        break;
+
+                }
                 produtos.Remove(produtoSelecionado);
                 produtosFiltrados.Remove(produtoSelecionado);
             });
@@ -74,46 +164,33 @@ namespace crud_treinamento
                 produtosListaFiltrados = new List<Produto>();
 
 
-                for (int i = 0; i < produtos.Count; i++)
+                for (int i = produtosFiltrados.Count-1; i >= 0; i--)
                 {
-                    if (!produtosListaFiltrados.Contains(produtos[i]))
-                        produtosListaFiltrados.Add(produtos[i]);
-
-                    if (!produtosFiltrados.Contains(produtos[i]))
-                        produtosFiltrados.Add(produtos[i]);
-                    
+                    produtosFiltrados.Remove(produtosFiltrados[i]);
                 }
                
                 switch (dadoFiltro)
                 {
                     case "Limpeza":
-                        produtosListaFiltrados = produtosListaFiltrados.Where(prod => prod.Tipo == "Limpeza").ToList();
+                        for (int i = 0; i < listaProdutosLimpeza.Count; i++)
+                            produtosFiltrados.Add(listaProdutosLimpeza[i]);
 
-                            for(int j = produtosFiltrados.Count-1; j >=0; j--)
-                                if (!produtosListaFiltrados.Contains(produtosFiltrados[j]))
-                                    produtosFiltrados.Remove(produtosFiltrados[j]);
                         break;
 
-                    case "Bebidas":
-                        produtosListaFiltrados = produtosListaFiltrados.Where(prod => prod.Tipo == "Bebidas").ToList();
-
-                        for (int j = produtosFiltrados.Count - 1; j >= 0; j--)
-                            if (!produtosListaFiltrados.Contains(produtosFiltrados[j]))
-                                produtosFiltrados.Remove(produtosFiltrados[j]);
+                    case "Bebida":
+                        for (int i = 0; i < listaProdutosBebida.Count; i++)
+                            produtosFiltrados.Add(listaProdutosBebida[i]);
+     
                         break;
 
-                    case "Laticinios":
-                        produtosListaFiltrados = produtosListaFiltrados.Where(prod => prod.Tipo == "Laticinios").ToList();
-
-                        for (int j = produtosFiltrados.Count - 1; j >= 0; j--)
-                            if (!produtosListaFiltrados.Contains(produtosFiltrados[j]))
-                                produtosFiltrados.Remove(produtosFiltrados[j]);
+                    case "Laticinio":
+                        for (int i = 0; i < listaProdutosLaticinio.Count; i++)
+                            produtosFiltrados.Add(listaProdutosLaticinio[i]);
                         break;
 
                     default:
                         for (int i = 0; i < produtos.Count; i++)
-                         if (!produtosFiltrados.Contains(produtos[i]))
-                                produtosFiltrados.Add(produtos[i]);
+                            produtosFiltrados.Add(produtos[i]);
                         
                         break;
                 }

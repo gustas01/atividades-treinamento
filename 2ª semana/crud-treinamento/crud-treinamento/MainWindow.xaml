@@ -11,8 +11,8 @@
             <RowDefinition Height="107*"/>
             <RowDefinition Height="110*"/>
         </Grid.RowDefinitions>
-        <Button Command="{Binding adiciona}" Content="Create" HorizontalAlignment="Left" Margin="264,23,0,0" VerticalAlignment="Top" Click="Button_Click" Width="80" Background="#FF57BB15"/>
-        <ListView ItemsSource="{ Binding produtosFiltrados}" SelectedItem="{Binding produtoSelecionado}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="itens_SelectionChanged" Grid.RowSpan="2" Margin="264,122,264,10">
+        <Button Command="{Binding adiciona}" Content="Create" HorizontalAlignment="Left" Margin="405,46,0,0" VerticalAlignment="Top" Click="Button_Click" Width="80" Background="#FF57BB15"/>
+        <ListView ItemsSource="{ Binding produtosFiltrados}" SelectedItem="{Binding produtoSelecionado}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="itens_SelectionChanged" Grid.RowSpan="2" Margin="407,129,121,3">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Nome}" />
@@ -23,15 +23,21 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Command="{Binding update}" x:Name="update" Content="Update" HorizontalAlignment="Center" Margin="0,23,0,0" VerticalAlignment="Top" Background="#FFCEC711" Click="update_Click" Width="80"/>
-        <Button IsEnabled="{Binding produtosFiltrados.Count}" Content="Delete" Command="{Binding remove}" HorizontalAlignment="Left" Margin="456,23,0,0" VerticalAlignment="Top" Width="80" Background="#FFDE0D0D" Click="Button_Click_1"/>
-        <ComboBox SelectedValuePath="Content" SelectedValue="{Binding dadoFiltro}" HorizontalAlignment="Left" Height="28" Margin="264,79,0,0" VerticalAlignment="Top" Width="117" SelectionChanged="ComboBox_SelectionChanged">
+        <Button Command="{Binding update}" x:Name="update" Content="Update" HorizontalAlignment="Left" Margin="501,46,0,0" VerticalAlignment="Top" Background="#FFCEC711" Click="update_Click" Width="80"/>
+        <Button IsEnabled="{Binding produtosFiltrados.Count}" Content="Delete" Command="{Binding remove}" HorizontalAlignment="Left" Margin="597,46,0,0" VerticalAlignment="Top" Width="80" Background="#FFDE0D0D" Click="Button_Click_1"/>
+        <ComboBox SelectedValuePath="Content" SelectedValue="{Binding dadoFiltro}" HorizontalAlignment="Left" Height="28" Margin="407,86,0,0" VerticalAlignment="Top" Width="117" SelectionChanged="ComboBox_SelectionChanged">
             <ComboBoxItem Content="TODOS"/>
             <ComboBoxItem Content="Limpeza"/>
-            <ComboBoxItem Content="Bebidas"/>
-            <ComboBoxItem Content="Laticinios"/>
+            <ComboBoxItem Content="Bebida"/>
+            <ComboBoxItem Content="Laticinio"/>
         </ComboBox>
-        <Button Command="{Binding filtrar}" Content="Filtrar" HorizontalAlignment="Left" Margin="444,80,0,0" VerticalAlignment="Top" Width="92" Background="#FFFF8354" Height="27"/>
+        <Button Command="{Binding filtrar}" Content="Filtrar" HorizontalAlignment="Left" Margin="587,87,0,0" VerticalAlignment="Top" Width="92" Background="#FFFF8354" Height="27"/>
+        <ComboBox SelectedValuePath="Content" SelectedValue="{Binding dadoTipoCreate}" HorizontalAlignment="Left" Height="28" Margin="260,46,0,0" VerticalAlignment="Top" Width="117" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem Content="Limpeza"/>
+            <ComboBoxItem Content="Bebida"/>
+            <ComboBoxItem Content="Laticinio"/>
+        </ComboBox>
+        <Label Content="Selecione o tipo do produto para inserir" HorizontalAlignment="Left" Margin="27,47,0,0" VerticalAlignment="Top"/>
         <!--<TextBox Text="{Binding produtoNome}" HorizontalAlignment="Left" Margin="264,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80">
             <TextBox.RenderTransform>
                 <TransformGroup>

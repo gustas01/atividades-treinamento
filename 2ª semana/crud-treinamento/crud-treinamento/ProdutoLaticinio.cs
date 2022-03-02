@@ -30,8 +30,6 @@ namespace crud_treinamento
             set { this.nome = value; }
         }
 
-
-
         public float Preco
         {
             get { return this.preco; }

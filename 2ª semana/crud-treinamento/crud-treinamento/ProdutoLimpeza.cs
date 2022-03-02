@@ -9,7 +9,6 @@ namespace crud_treinamento
     public class ProdutoLimpeza : Produto
     {
         private String cheiro;
-        private bool habilitado;
         public ProdutoLimpeza()
         {
 
@@ -30,8 +29,6 @@ namespace crud_treinamento
             set{ this.nome = value; }
         }
 
-
-
         public float Preco
         {
             get { return this.preco; }
@@ -51,11 +48,6 @@ namespace crud_treinamento
             set { this.cheiro = value; }
         }
 
-        public bool Habilitado
-        {
-            get { return this.habilitado; }
-            set { this.habilitado = value; }
-        }
 
 
     }
