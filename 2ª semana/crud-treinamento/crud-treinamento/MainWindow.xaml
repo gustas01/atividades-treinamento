@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:crud_treinamento" d:DataContext="{d:DesignInstance Type=local:MainWindowVM}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Cadastro de produtos" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="107*"/>
@@ -15,10 +15,14 @@
         <ListView ItemsSource="{ Binding produtosFiltrados}" SelectedItem="{Binding produtoSelecionado}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="itens_SelectionChanged" Grid.RowSpan="2" Margin="407,129,121,3">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Nome}" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Preco}" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Marca}" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Tipo}" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Nome}" >Nome
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Preco}" >Preço
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Marca}" >Marca
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Tipo}" >Tipo
+                    </GridViewColumn>
 
                 </GridView>
             </ListView.View>

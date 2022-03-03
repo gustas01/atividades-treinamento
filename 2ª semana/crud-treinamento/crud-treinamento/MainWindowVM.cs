@@ -14,12 +14,13 @@ namespace crud_treinamento
 
         public ObservableCollection<Produto> produtos { get; set; }
         public ObservableCollection<Produto> produtosFiltrados { get; set; }
-        
+
 
         public ICommand adiciona { get; set; }
         public ICommand remove { get; set; }
         public ICommand update { get; set; }
         public ICommand filtrar { get; set; }
+
 
 
         public Produto produtoSelecionado { get; set; }
