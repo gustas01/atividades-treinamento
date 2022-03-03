@@ -11,8 +11,8 @@ namespace crud_treinamento
 {
     internal class MainWindowVM : INotifyPropertyChanged
     {
-
-        public ObservableCollection<Produto> produtos { get; set; }
+        
+        public List<Produto> produtos { get; set; }
         public ObservableCollection<Produto> produtosFiltrados { get; set; }
 
 
@@ -32,7 +32,7 @@ namespace crud_treinamento
 
         public MainWindowVM()
         {
-            produtos = new ObservableCollection<Produto>();
+            produtos = new List<Produto>();
             produtosFiltrados = new ObservableCollection<Produto>();
             
 
