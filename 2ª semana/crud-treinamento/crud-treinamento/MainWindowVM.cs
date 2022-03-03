@@ -14,11 +14,7 @@ namespace crud_treinamento
 
         public ObservableCollection<Produto> produtos { get; set; }
         public ObservableCollection<Produto> produtosFiltrados { get; set; }
-        public ObservableCollection<ProdutoLimpeza> listaProdutosLimpeza { get; set; }
-        public ObservableCollection<ProdutoBebida> listaProdutosBebida { get; set; }
-        public ObservableCollection<ProdutoLaticinio> listaProdutosLaticinio { get; set; }
-        List<Produto> produtosListaFiltrados;
-
+        
 
         public ICommand adiciona { get; set; }
         public ICommand remove { get; set; }
@@ -37,9 +33,7 @@ namespace crud_treinamento
         {
             produtos = new ObservableCollection<Produto>();
             produtosFiltrados = new ObservableCollection<Produto>();
-            listaProdutosLimpeza = new ObservableCollection<ProdutoLimpeza>();
-            listaProdutosBebida = new ObservableCollection<ProdutoBebida>();
-            listaProdutosLaticinio = new ObservableCollection<ProdutoLaticinio>();
+            
 
             adiciona = new RelayCommand((object objeto) =>
             {
@@ -55,7 +49,7 @@ namespace crud_treinamento
                         produtoLimpeza.Tipo = "Limpeza";
                         produtos.Add(produtoLimpeza);
                         produtosFiltrados.Add(produtoLimpeza);
-                        listaProdutosLimpeza.Add(produtoLimpeza);
+                        
                        
                         break;
 
@@ -69,7 +63,6 @@ namespace crud_treinamento
                         produtoBebida.Tipo = "Bebida";
                         produtos.Add(produtoBebida);
                         produtosFiltrados.Add(produtoBebida);
-                        listaProdutosBebida.Add(produtoBebida);
                         break;
 
                     case "Laticinio":
@@ -82,26 +75,14 @@ namespace crud_treinamento
                         produtoLaticinio.Tipo = "Laticinio";
                         produtos.Add(produtoLaticinio); 
                         produtosFiltrados.Add(produtoLaticinio);
-                        listaProdutosLaticinio.Add(produtoLaticinio);
                         break;
                 }
-                //CreateWindow window = new CreateWindow();
-
-                //Produto produto = new Produto();
-                //window.DataContext = produto;
-                //window.ShowDialog();
-
-
-                //produtos.Add(produto);
-                //produtosFiltrados.Add(produto);
+                
             });
 
             update = new RelayCommand((object objeto) =>
             {
-                //CreateWindow window = new CreateWindow();
-
-                //window.DataContext = produtoSelecionado;
-                //window.ShowDialog();
+               
 
                 Produto produtoAux = produtoSelecionado;
 
@@ -130,38 +111,17 @@ namespace crud_treinamento
 
                 }
 
-                //produtos.Remove(produtoSelecionado);
-                //produtosFiltrados.Remove(produtoSelecionado);
-
-                //produtos.Add(produtoAux);
-                //produtosFiltrados.Add(produtoAux);
-
             });
 
             remove = new RelayCommand((object objeto) =>
             {
-                switch (produtoSelecionado.Tipo)
-                {
-                    case "Limpeza":
-                        listaProdutosLimpeza.Remove((ProdutoLimpeza)produtoSelecionado);
-                        break;
-
-                    case "Bebida":
-                        listaProdutosBebida.Remove((ProdutoBebida)produtoSelecionado);
-                        break;
-
-                    case "Laticinio":
-                        listaProdutosLaticinio.Remove((ProdutoLaticinio)produtoSelecionado);
-                        break;
-
-                }
                 produtos.Remove(produtoSelecionado);
                 produtosFiltrados.Remove(produtoSelecionado);
             });
 
             filtrar = new RelayCommand((object objeto) =>
             {
-                produtosListaFiltrados = new List<Produto>();
+                
 
 
                 for (int i = produtosFiltrados.Count-1; i >= 0; i--)
@@ -172,20 +132,31 @@ namespace crud_treinamento
                 switch (dadoFiltro)
                 {
                     case "Limpeza":
-                        for (int i = 0; i < listaProdutosLimpeza.Count; i++)
-                            produtosFiltrados.Add(listaProdutosLimpeza[i]);
+
+                        for (int i = 0; i < produtos.Count; i++)
+                            if (produtos[i].Tipo == "Limpeza")
+                                produtosFiltrados.Add(produtos[i]);
+                            //produtos[i].Tipo == "Limpeza" ? produtosFiltrados.Add(produtos[i]) : false;
+
+                           
 
                         break;
 
                     case "Bebida":
-                        for (int i = 0; i < listaProdutosBebida.Count; i++)
-                            produtosFiltrados.Add(listaProdutosBebida[i]);
+                        for (int i = 0; i < produtos.Count; i++)
+                            if (produtos[i].Tipo == "Bebida")
+                                produtosFiltrados.Add(produtos[i]);
+
+                        
      
                         break;
 
                     case "Laticinio":
-                        for (int i = 0; i < listaProdutosLaticinio.Count; i++)
-                            produtosFiltrados.Add(listaProdutosLaticinio[i]);
+                        for (int i = 0; i < produtos.Count; i++)
+                            if (produtos[i].Tipo == "Laticinio")
+                                produtosFiltrados.Add(produtos[i]);
+
+                        
                         break;
 
                     default:
