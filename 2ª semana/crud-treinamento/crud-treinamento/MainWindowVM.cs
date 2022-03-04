@@ -129,43 +129,15 @@ namespace crud_treinamento
                 {
                     produtosFiltrados.Remove(produtosFiltrados[i]);
                 }
-               
-                switch (dadoFiltro)
-                {
-                    case "Limpeza":
 
-                        for (int i = 0; i < produtos.Count; i++)
-                            if (produtos[i].Tipo == "Limpeza")
-                                produtosFiltrados.Add(produtos[i]);
-                            //produtos[i].Tipo == "Limpeza" ? produtosFiltrados.Add(produtos[i]) : false;
 
-                           
-
-                        break;
-
-                    case "Bebida":
-                        for (int i = 0; i < produtos.Count; i++)
-                            if (produtos[i].Tipo == "Bebida")
-                                produtosFiltrados.Add(produtos[i]);
-
-                        
-     
-                        break;
-
-                    case "Laticinio":
-                        for (int i = 0; i < produtos.Count; i++)
-                            if (produtos[i].Tipo == "Laticinio")
-                                produtosFiltrados.Add(produtos[i]);
-
-                        
-                        break;
-
-                    default:
-                        for (int i = 0; i < produtos.Count; i++)
+                if (dadoFiltro == "TODOS" || dadoFiltro == null)
+                    for (int i = 0; i < produtos.Count; i++)
+                        produtosFiltrados.Add(produtos[i]);
+                else
+                    for (int i = 0; i < produtos.Count; i++)
+                        if (produtos[i].Tipo == dadoFiltro)
                             produtosFiltrados.Add(produtos[i]);
-                        
-                        break;
-                }
             });
             
             

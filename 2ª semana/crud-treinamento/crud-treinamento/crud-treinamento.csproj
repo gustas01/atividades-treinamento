@@ -55,9 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CreateWindow.xaml.cs">
-      <DependentUpon>CreateWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CreateWindowProdutoBebida.xaml.cs">
       <DependentUpon>CreateWindowProdutoBebida.xaml</DependentUpon>
     </Compile>
@@ -70,10 +67,6 @@
     <Compile Include="ProdutoBebida.cs" />
     <Compile Include="ProdutoLaticinio.cs" />
     <Compile Include="RelayCommand.cs" />
-    <Page Include="CreateWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="CreateWindowProdutoBebida.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
