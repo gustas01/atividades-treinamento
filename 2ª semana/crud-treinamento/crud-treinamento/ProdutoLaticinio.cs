@@ -9,14 +9,14 @@ namespace crud_treinamento
     internal class ProdutoLaticinio : Produto
     {
 
-        private bool desnatado { get; set; }
+        private bool desnatado;
 
         public ProdutoLaticinio()
         {
 
         }
 
-        public ProdutoLaticinio(string nome, float preco, string marca, bool desnatado)
+        public ProdutoLaticinio(string nome, double preco, string marca, bool desnatado)
         {
             this.nome = nome;
             this.preco = preco;
@@ -30,7 +30,7 @@ namespace crud_treinamento
             set { this.nome = value; }
         }
 
-        public float Preco
+        public double Preco
         {
             get { return this.preco; }
             set { this.preco = value; }
@@ -48,7 +48,6 @@ namespace crud_treinamento
             get { return this.desnatado; }
             set { this.desnatado = value; }
         }
-
 
     }
 }

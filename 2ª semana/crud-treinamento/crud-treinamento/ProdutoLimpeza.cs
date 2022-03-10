@@ -14,7 +14,7 @@ namespace crud_treinamento
 
         }
 
-        public ProdutoLimpeza(string nome, float preco, string marca, string cheiro)
+        public ProdutoLimpeza(string nome, double preco, string marca, string cheiro)
         {
             this.nome = nome;
             this.preco = preco;
@@ -29,7 +29,7 @@ namespace crud_treinamento
             set{ this.nome = value; }
         }
 
-        public float Preco
+        public double Preco
         {
             get { return this.preco; }
             set{ this.preco = value; }
@@ -47,7 +47,6 @@ namespace crud_treinamento
             get { return this.cheiro; }
             set { this.cheiro = value; }
         }
-
 
 
     }

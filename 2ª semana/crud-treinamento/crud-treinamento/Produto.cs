@@ -8,8 +8,9 @@ namespace crud_treinamento
 {
     public class Produto
     {
+        protected int id { get; set; }
         protected string nome { get; set; }
-        protected float preco { get; set; }
+        protected double preco { get; set; }
         protected string marca { get; set; }
         protected string tipo { get; set; }
 
@@ -26,7 +27,7 @@ namespace crud_treinamento
 
 
 
-        public float Preco
+        public double Preco
         {
             get { return this.preco; }
             set { this.preco = value; }
@@ -43,6 +44,12 @@ namespace crud_treinamento
         {
             get { return this.tipo; }
             set { this.tipo = value; }
+        }
+
+        public int Id
+        {
+            get { return this.id; }
+            set { this.id = value; }
         }
     }
 }

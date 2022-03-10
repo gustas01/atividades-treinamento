@@ -16,7 +16,7 @@ namespace crud_treinamento
 
         }
 
-        public ProdutoBebida(string nome, float preco, string marca, bool alcoolica)
+        public ProdutoBebida(string nome, double preco, string marca, bool alcoolica)
         {
             this.nome = nome;
             this.preco = preco;
@@ -32,7 +32,7 @@ namespace crud_treinamento
 
 
 
-        public float Preco
+        public double Preco
         {
             get { return this.preco; }
             set { this.preco = value; }
@@ -50,7 +50,6 @@ namespace crud_treinamento
             get { return this.alcoolica; }
             set { this.alcoolica = value; }
         }
-
 
     }
 }
