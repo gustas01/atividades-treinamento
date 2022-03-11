@@ -60,7 +60,7 @@ namespace crud_treinamento
             }
         }
 
-       public string GetRegistroPorIdProdutoLimpeza(int id)
+       public ProdutoLimpeza GetRegistroPorIdProdutoLimpeza(int id)
         {
             ProdutoLimpeza produtoLimpeza = new ProdutoLimpeza();
             try
@@ -69,15 +69,24 @@ namespace crud_treinamento
                 {
                     // abre a conexão com o PgSQL e define a instrução SQL
                     conexaobd.pgsqlConnection.Open();
-                    string cmdSeleciona = $"Select (cheiro) from produtoslimpeza where idproduto_fk={id}";
+                    string cmdSeleciona = $"Select P.id, P.nome, P.preco, P.marca, P.tipo, L.cheiro from produtoslimpeza L " +
+                        $"INNER JOIN produtos P ON L.idproduto_fk = P.id where P.id = {id}";
 
                     using (NpgsqlCommand Adpt = new NpgsqlCommand(cmdSeleciona, conexaobd.pgsqlConnection))
                     {
                         NpgsqlDataReader reader = Adpt.ExecuteReader();
 
                         if (reader.HasRows && reader.Read())
-                            return reader.GetString(0);
-                                
+                            return new ProdutoLimpeza()
+                            {
+                                Id = reader.GetInt32(0),
+                                Nome = reader.GetString(1),
+                                Preco = reader.GetDouble(2),
+                                Marca = reader.GetString(3),
+                                Tipo = reader.GetString(4),
+                                Cheiro = reader.GetString(5),
+                            };
+
                     }
                 }   
             }

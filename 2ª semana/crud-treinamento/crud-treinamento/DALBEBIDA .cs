@@ -69,7 +69,8 @@ namespace crud_treinamento
                 {
                     // abre a conexão com o PgSQL e define a instrução SQL
                     conexaobd.pgsqlConnection.Open();
-                    string cmdSeleciona = $"Select (alcoolica) from produtosbebida where idproduto_fk={id}";
+                    string cmdSeleciona = $"Select P.id, P.nome, P.preco, P.marca, P.tipo, B.alcoolica from produtosbebida B " +
+                        $"INNER JOIN produtos P ON B.idproduto_fk = P.id where idproduto_fk={id}";
 
                     using (NpgsqlCommand Adpt = new NpgsqlCommand(cmdSeleciona, conexaobd.pgsqlConnection))
                     {
