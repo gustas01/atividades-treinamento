@@ -9,6 +9,7 @@ namespace crud_treinamento
     public class ProdutoLimpeza : Produto
     {
         private String cheiro;
+        private int idLimpeza;
         public ProdutoLimpeza()
         {
 
@@ -48,6 +49,11 @@ namespace crud_treinamento
             set { this.cheiro = value; }
         }
 
+        public int IdLimpeza
+        {
+            get { return this.idLimpeza; }
+            set { this.idLimpeza = value; }
+        }
 
     }
 }

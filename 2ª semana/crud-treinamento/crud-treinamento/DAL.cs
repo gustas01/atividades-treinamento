@@ -10,9 +10,16 @@ namespace crud_treinamento
 {
     public class DAL
     {
-        ConexaoBD conexaobd = new ConexaoBD();
+        private ConexaoBD conexaobd;
+        private DALLIMPEZA modelLimpeza;
+        private DALBEBIDA modelBebida;
+        private DALLATICINIO modelLaticinio;
 
         public DAL() {
+            modelLimpeza = new DALLIMPEZA();
+            modelBebida = new DALBEBIDA();
+            modelLaticinio = new DALLATICINIO();
+            conexaobd = new ConexaoBD();
         }
 
 
@@ -23,29 +30,9 @@ namespace crud_treinamento
 
             try
             {
-                using (conexaobd.pgsqlConnection = new NpgsqlConnection(conexaobd.connString))
-                {
-                    // abre a conexão com o PgSQL e define a instrução SQL
-                    conexaobd.pgsqlConnection.Open();
-
-                    string cmdSeleciona = "Select * from produtos order by id";
-
-                    using (NpgsqlCommand Adpt = new NpgsqlCommand(cmdSeleciona, conexaobd.pgsqlConnection))
-                    {
-                       NpgsqlDataReader reader = Adpt.ExecuteReader();
-
-                        if (reader.HasRows)
-                            while (reader.Read())
-                                produtoList.Add(new Produto()
-                                {
-                                    Id = reader.GetInt32(0),
-                                    Nome = reader.GetString(1),
-                                    Preco = reader.GetDouble(2),
-                                    Marca = reader.GetString(3),
-                                    Tipo = reader.GetString(4)
-                                });
-                    }
-                }
+                modelLimpeza.GetTodosRegistrosProdutoLimpeza(produtoList);
+                modelBebida.GetTodosRegistrosProdutoBebida(produtoList);
+                modelLaticinio.GetTodosRegistrosProdutoLaticinio(produtoList);
             }
             catch(NpgsqlException ex)
             {
@@ -57,7 +44,7 @@ namespace crud_treinamento
             }
             finally
             {
-                conexaobd.pgsqlConnection.Close();
+                
             }
             return produtoList;
         }

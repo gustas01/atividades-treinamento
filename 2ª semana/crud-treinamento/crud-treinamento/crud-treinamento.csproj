@@ -110,6 +110,8 @@
     <Compile Include="CreateWindowProdutoLimpeza.xaml.cs">
       <DependentUpon>CreateWindowProdutoLimpeza.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DALBEBIDA .cs" />
+    <Compile Include="DALLATICINIO.cs" />
     <Compile Include="DALLIMPEZA.cs" />
     <Compile Include="DAL.cs" />
     <Compile Include="ProdutoBebida.cs" />

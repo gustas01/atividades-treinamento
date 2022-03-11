@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace crud_treinamento
 {
-    public class DALLIMPEZA
+    public class DALLATICINIO
     {
         ConexaoBD conexaobd = new ConexaoBD();
 
-        public DALLIMPEZA() {
+        public DALLATICINIO() {
         }
 
 
-        public void GetTodosRegistrosProdutoLimpeza(List<Produto> produtoList)
+        public void GetTodosRegistrosProdutoLaticinio(List<Produto> produtoList)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace crud_treinamento
                     // abre a conexão com o PgSQL e define a instrução SQL
                     conexaobd.pgsqlConnection.Open();
 
-                    string cmdSeleciona = "Select P.id, P.nome, P.preco, P.marca, P.tipo, L.cheiro from produtoslimpeza L " +
+                    string cmdSeleciona = "Select P.id, P.nome, P.preco, P.marca, P.tipo, L.desnatado from produtoslaticinio L " +
                         "INNER JOIN produtos P ON L.idproduto_fk = P.id order by P.id";
 
                     using (NpgsqlCommand Adpt = new NpgsqlCommand(cmdSeleciona, conexaobd.pgsqlConnection))
@@ -34,14 +34,14 @@ namespace crud_treinamento
 
                         if (reader.HasRows)
                             while (reader.Read())
-                                produtoList.Add(new ProdutoLimpeza()
+                                produtoList.Add(new ProdutoLaticinio()
                                 {
                                     Id = reader.GetInt32(0),
                                     Nome = reader.GetString(1),
                                     Preco = reader.GetDouble(2),
                                     Marca = reader.GetString(3),
                                     Tipo = reader.GetString(4),
-                                    Cheiro = reader.GetString(5),
+                                    Desnatado = reader.GetBoolean(5),
                                 });
                     }
                 }
@@ -60,16 +60,16 @@ namespace crud_treinamento
             }
         }
 
-       public string GetRegistroPorIdProdutoLimpeza(int id)
+       public string GetRegistroPorIdProdutoLaticinio(int id)
         {
-            ProdutoLimpeza produtoLimpeza = new ProdutoLimpeza();
+            ProdutoLaticinio produtoLaticinio = new ProdutoLaticinio();
             try
             {
                 using (conexaobd.pgsqlConnection = new NpgsqlConnection(conexaobd.connString))
                 {
                     // abre a conexão com o PgSQL e define a instrução SQL
                     conexaobd.pgsqlConnection.Open();
-                    string cmdSeleciona = $"Select (cheiro) from produtoslimpeza where idproduto_fk={id}";
+                    string cmdSeleciona = $"Select (desnatado) from produtoslaticinio where idproduto_fk={id}";
 
                     using (NpgsqlCommand Adpt = new NpgsqlCommand(cmdSeleciona, conexaobd.pgsqlConnection))
                     {
@@ -97,7 +97,7 @@ namespace crud_treinamento
         }
 
 
-       public int InserirRegistroProdutoLimpeza(string nome, double preco, string marca, string tipo, string cheiro)
+       public int InserirRegistroProdutoLaticinio(string nome, double preco, string marca, string tipo, bool desnatado)
         {
             try
             {
@@ -115,13 +115,13 @@ namespace crud_treinamento
                     {
                         int prodID = (int) pgsqlcommand.ExecuteScalar();
 
-                        string cmdInserirProdutoLimpeza = String.Format("" +
-                            $"insert into produtoslimpeza(cheiro, idproduto_fk) values ('{cheiro}', {prodID})");
+                        string cmdInserirProdutoLaticinio = String.Format("" +
+                            $"insert into produtoslaticinio(desnatado, idproduto_fk) values ('{desnatado}', {prodID})");
 
-                        using (NpgsqlCommand pgsqlcommandProdutoLimpeza = new NpgsqlCommand(
-                            cmdInserirProdutoLimpeza, conexaobd.pgsqlConnection))
+                        using (NpgsqlCommand pgsqlcommandProdutoLaticinio = new NpgsqlCommand(
+                            cmdInserirProdutoLaticinio, conexaobd.pgsqlConnection))
                         {
-                            pgsqlcommandProdutoLimpeza.ExecuteNonQuery();
+                            pgsqlcommandProdutoLaticinio.ExecuteNonQuery();
                         }
 
 
@@ -144,7 +144,7 @@ namespace crud_treinamento
         }
 
 
-        public void AtualizarRegistroProdutoLimpeza(int id, string nome, double preco, string marca, string cheiro)
+        public void AtualizarRegistroProdutoLaticinio(int id, string nome, double preco, string marca, bool desnatado)
             {
             try
             {
@@ -157,7 +157,7 @@ namespace crud_treinamento
 
                     string cmdAtualiza = String.Format($"Update produtos Set nome = '{nome}', preco = {preco}, marca = '{marca}' Where id = {id}");
 
-                    string cmdAtualizaProdutoLimpeza = String.Format($"UPDATE produtoslimpeza SET cheiro = '{cheiro}' WHERE idproduto_fk = {id}");
+                    string cmdAtualizaProdutoLaticinio = String.Format($"UPDATE produtoslaticinio SET desnatado = '{desnatado}' WHERE idproduto_fk = {id}");
 
 
                     using (NpgsqlCommand pgsqlcommand = new NpgsqlCommand(cmdAtualiza, conexaobd.pgsqlConnection))
@@ -165,7 +165,7 @@ namespace crud_treinamento
                         pgsqlcommand.ExecuteNonQuery();
                     }
 
-                    using (NpgsqlCommand pgsqlcommand = new NpgsqlCommand(cmdAtualizaProdutoLimpeza, conexaobd.pgsqlConnection))
+                    using (NpgsqlCommand pgsqlcommand = new NpgsqlCommand(cmdAtualizaProdutoLaticinio, conexaobd.pgsqlConnection))
                     {
                         pgsqlcommand.ExecuteNonQuery();
                     }
@@ -188,7 +188,7 @@ namespace crud_treinamento
         }
 
 
-       public void DeletarRegistroProdutoLimpeza(int id)
+       public void DeletarRegistroProdutoLaticinio(int id)
         {
             try
             {
@@ -197,11 +197,11 @@ namespace crud_treinamento
                     //abre a conexao
                     conexaobd.pgsqlConnection.Open();
 
-                    string cmdDeletarProdutoLimpeza = String.Format(
-                        $"Delete from produtoslimpeza Where idproduto_fk = '{id}' RETURNING id;" +
+                    string cmdDeletarProdutoLaticinio = String.Format(
+                        $"Delete from produtosLaticinio Where idproduto_fk = '{id}' RETURNING id;" +
                         $" DELETE FROM produtos WHERE id = {id}");
 
-                    using (NpgsqlCommand pgsqlcommand = new NpgsqlCommand(cmdDeletarProdutoLimpeza, conexaobd.pgsqlConnection))
+                    using (NpgsqlCommand pgsqlcommand = new NpgsqlCommand(cmdDeletarProdutoLaticinio, conexaobd.pgsqlConnection))
                     {
                         pgsqlcommand.ExecuteNonQuery();
                     }
