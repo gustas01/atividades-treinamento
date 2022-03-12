@@ -10,7 +10,7 @@ namespace crud_treinamento
 {
     public class DALLATICINIO
     {
-        ConexaoBD conexaobd = new ConexaoBD();
+        ConexaoPGBD conexaobd = new ConexaoPGBD();
 
         public DALLATICINIO() {
         }

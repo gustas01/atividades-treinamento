@@ -10,7 +10,7 @@ namespace crud_treinamento
 {
     public class DALBEBIDA
     {
-        ConexaoBD conexaobd = new ConexaoBD();
+        ConexaoPGBD conexaobd = new ConexaoPGBD();
 
         public DALBEBIDA() {
         }

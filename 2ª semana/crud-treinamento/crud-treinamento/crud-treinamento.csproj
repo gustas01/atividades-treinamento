@@ -100,7 +100,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ConexaoBD.cs" />
+    <Compile Include="ConexaoPGBD.cs" />
     <Compile Include="CreateWindowProdutoBebida.xaml.cs">
       <DependentUpon>CreateWindowProdutoBebida.xaml</DependentUpon>
     </Compile>
@@ -114,6 +114,7 @@
     <Compile Include="DALLATICINIO.cs" />
     <Compile Include="DALLIMPEZA.cs" />
     <Compile Include="DAL.cs" />
+    <Compile Include="IConexaoBD.cs" />
     <Compile Include="ProdutoBebida.cs" />
     <Compile Include="ProdutoLaticinio.cs" />
     <Compile Include="RelayCommand.cs" />

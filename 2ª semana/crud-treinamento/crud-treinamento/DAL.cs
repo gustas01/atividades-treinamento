@@ -5,12 +5,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace crud_treinamento
 {
     public class DAL
     {
-        private ConexaoBD conexaobd;
+        private ConexaoPGBD conexaobd;
         private DALLIMPEZA modelLimpeza;
         private DALBEBIDA modelBebida;
         private DALLATICINIO modelLaticinio;
@@ -19,7 +20,7 @@ namespace crud_treinamento
             modelLimpeza = new DALLIMPEZA();
             modelBebida = new DALBEBIDA();
             modelLaticinio = new DALLATICINIO();
-            conexaobd = new ConexaoBD();
+            conexaobd = new ConexaoPGBD();
         }
 
 
@@ -36,6 +37,7 @@ namespace crud_treinamento
             }
             catch(NpgsqlException ex)
             {
+                MessageBox.Show("Falha na conexão com o banco");
                 throw ex;
             }
             catch(Exception ex)

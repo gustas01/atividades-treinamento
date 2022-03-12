@@ -35,15 +35,13 @@ namespace crud_treinamento
 
         public MainWindowVM()
         {
-            produtos = new List<Produto>();
-            //produtosFiltrados = new ObservableCollection<Produto>();
             modelProdutos = new DAL();
             modelProdutosLimpeza = new DALLIMPEZA();
             modelProdutosBebida = new DALBEBIDA();
             modelProdutosLaticinio = new DALLATICINIO();
 
             produtos = modelProdutos.GetTodosRegistrosProduto();
-            produtosFiltrados = new ObservableCollection<Produto>(modelProdutos.GetTodosRegistrosProduto());
+            produtosFiltrados = new ObservableCollection<Produto>(produtos);
             int prodID;
 
             adiciona = new RelayCommand((object objeto) =>
