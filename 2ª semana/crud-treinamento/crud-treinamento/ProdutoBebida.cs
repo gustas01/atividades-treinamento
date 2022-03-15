@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace crud_treinamento
 {
-    internal class ProdutoBebida : Produto
+    public class ProdutoBebida : Produto, IProduto
     {
 
         private bool alcoolica;
@@ -24,7 +24,7 @@ namespace crud_treinamento
             this.alcoolica = alcoolica;
         }
 
-        public String Nome
+        public string Nome
         {
             get { return this.nome; }
             set { this.nome = value; }
@@ -39,7 +39,7 @@ namespace crud_treinamento
         }
 
 
-        public String Marca
+        public string Marca
         {
             get { return this.marca; }
             set { this.marca = value; }

@@ -33,16 +33,32 @@ namespace crud_treinamento
 
 
 
+
+        //SELEÇÃO DO BANDO DE DADOS
+        IConexaoBD connectBD = new ConexaoMRDB();
+
+
+
         public MainWindowVM()
         {
-            modelProdutos = new DAL();
-            modelProdutosLimpeza = new DALLIMPEZA();
-            modelProdutosBebida = new DALBEBIDA();
-            modelProdutosLaticinio = new DALLATICINIO();
+            List<IDALProdutos> dALProdutos = new List<IDALProdutos>();
+            modelProdutos = new DAL(connectBD);
+            modelProdutosLimpeza = new DALLIMPEZA(connectBD);
+            modelProdutosBebida = new DALBEBIDA(connectBD);
+            modelProdutosLaticinio = new DALLATICINIO(connectBD);
 
-            produtos = modelProdutos.GetTodosRegistrosProduto();
+
+
+            produtos = modelProdutos.GetTodosRegistrosProduto(new List<IDALProdutos>()
+            {
+                modelProdutosLimpeza,
+                modelProdutosBebida,
+                modelProdutosLaticinio
+            } );
+
             produtosFiltrados = new ObservableCollection<Produto>(produtos);
             int prodID;
+            Dictionary<string, string> props = new Dictionary<string, string>();
 
             adiciona = new RelayCommand((object objeto) =>
             {
@@ -57,8 +73,17 @@ namespace crud_treinamento
 
                         produtoLimpeza.Tipo = "Limpeza";
 
-                        prodID = modelProdutosLimpeza.InserirRegistroProdutoLimpeza(produtoLimpeza.Nome, produtoLimpeza.Preco, produtoLimpeza.Marca,
-                            produtoLimpeza.Tipo, produtoLimpeza.Cheiro);
+                        
+                        props.Clear();
+
+                        props.Add("id", produtoLimpeza.Id.ToString());
+                        props.Add("nome", produtoLimpeza.Nome);
+                        props.Add("preco", produtoLimpeza.Preco.ToString());
+                        props.Add("marca", produtoLimpeza.Marca);
+                        props.Add("tipo", produtoLimpeza.Tipo);
+                        props.Add("cheiro", produtoLimpeza.Cheiro);
+
+                        prodID = modelProdutosLimpeza.InserirRegistro(props);
 
                         produtoLimpeza.Id = prodID;
                         produtos.Add(produtoLimpeza);
@@ -76,8 +101,16 @@ namespace crud_treinamento
 
                         produtoBebida.Tipo = "Bebida";
 
-                        prodID = modelProdutosBebida.InserirRegistroProdutoBebida(produtoBebida.Nome, produtoBebida.Preco, produtoBebida.Marca,
-                            produtoBebida.Tipo, produtoBebida.Alcoolica);
+                       
+                        props.Clear();
+                        props.Add("id", produtoBebida.Id.ToString());
+                        props.Add("nome", produtoBebida.Nome);
+                        props.Add("preco", produtoBebida.Preco.ToString());
+                        props.Add("marca", produtoBebida.Marca);
+                        props.Add("tipo", produtoBebida.Tipo);
+                        props.Add("alcoolica", produtoBebida.Alcoolica.ToString());
+
+                        prodID = modelProdutosBebida.InserirRegistro(props);
 
                         produtoBebida.Id = prodID;
 
@@ -94,8 +127,16 @@ namespace crud_treinamento
 
                         produtoLaticinio.Tipo = "Laticinio";
 
-                        prodID = modelProdutosLaticinio.InserirRegistroProdutoLaticinio(produtoLaticinio.Nome, produtoLaticinio.Preco, produtoLaticinio.Marca,
-                            produtoLaticinio.Tipo, produtoLaticinio.Desnatado);
+                       
+                        props.Clear();
+                        props.Add("id", produtoLaticinio.Id.ToString());
+                        props.Add("nome", produtoLaticinio.Nome);
+                        props.Add("preco", produtoLaticinio.Preco.ToString());
+                        props.Add("marca", produtoLaticinio.Marca);
+                        props.Add("tipo", produtoLaticinio.Tipo);
+                        props.Add("desnatado", produtoLaticinio.Desnatado.ToString());
+
+                        prodID = modelProdutosLaticinio.InserirRegistro(props);
 
                         produtoLaticinio.Id = prodID;
                         produtos.Add(produtoLaticinio); 
@@ -117,10 +158,14 @@ namespace crud_treinamento
                         windowLimpeza.DataContext = prodLimp;
                         windowLimpeza.ShowDialog();
 
-                        
-                        
-                        modelProdutosLimpeza.AtualizarRegistroProdutoLimpeza(prodLimp.Id, prodLimp.Nome, prodLimp.Preco,
-                            prodLimp.Marca, prodLimp.Cheiro);
+                        props.Clear();
+                        props.Add("id", prodLimp.Id.ToString());
+                        props.Add("nome", prodLimp.Nome);
+                        props.Add("preco", prodLimp.Preco.ToString());
+                        props.Add("marca", prodLimp.Marca);
+                        props.Add("cheiro", prodLimp.Cheiro);
+
+                        modelProdutosLimpeza.AtualizarRegistro(props);
 
                         break;
 
@@ -131,8 +176,14 @@ namespace crud_treinamento
                         windowBebida.DataContext = prodBeb;
                         windowBebida.ShowDialog();
 
-                        modelProdutosBebida.AtualizarRegistroProdutoBebida(prodBeb.Id, prodBeb.Nome, prodBeb.Preco,
-                            prodBeb.Marca, prodBeb.Alcoolica);
+                        props.Clear();
+                        props.Add("id", prodBeb.Id.ToString());
+                        props.Add("nome", prodBeb.Nome);
+                        props.Add("preco", prodBeb.Preco.ToString());
+                        props.Add("marca", prodBeb.Marca);
+                        props.Add("alcoolica", prodBeb.Alcoolica.ToString());
+
+                        modelProdutosBebida.AtualizarRegistro(props);
 
                         break;
 
@@ -143,7 +194,14 @@ namespace crud_treinamento
                         windowLaticinio.DataContext = prodLat;
                         windowLaticinio.ShowDialog();
 
-                        modelProdutosLaticinio.AtualizarRegistroProdutoLaticinio(prodLat.Id, prodLat.Nome, prodLat.Preco, prodLat.Marca, prodLat.Desnatado);
+                        props.Clear();
+                        props.Add("id", prodLat.Id.ToString());
+                        props.Add("nome", prodLat.Nome);
+                        props.Add("preco", prodLat.Preco.ToString());
+                        props.Add("marca", prodLat.Marca);
+                        props.Add("desnatado", prodLat.Desnatado.ToString());
+
+                        modelProdutosLaticinio.AtualizarRegistro(props);
                         break;
                     default:
                         return;
@@ -159,15 +217,15 @@ namespace crud_treinamento
                     switch (produtoSelecionado.Tipo)
                     {
                         case "Limpeza":
-                        modelProdutosLimpeza.DeletarRegistroProdutoLimpeza(produtoSelecionado.Id);
+                        modelProdutosLimpeza.DeletarRegistro(produtoSelecionado.Id);
                         break;
 
                         case "Bebida":
-                            modelProdutosBebida.DeletarRegistroProdutoBebida(produtoSelecionado.Id);
+                            modelProdutosBebida.DeletarRegistro(produtoSelecionado.Id);
                             break;
 
                         case "Laticinio":
-                            modelProdutosLaticinio.DeletarRegistroProdutoLaticinio(produtoSelecionado.Id);
+                            modelProdutosLaticinio.DeletarRegistro(produtoSelecionado.Id);
                             break;
                     }
 

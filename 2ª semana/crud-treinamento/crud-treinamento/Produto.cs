@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace crud_treinamento
 {
-    public class Produto
+    public class Produto : IProduto
     {
         protected int id { get; set; }
         protected string nome { get; set; }
@@ -19,7 +19,7 @@ namespace crud_treinamento
 
         }
 
-        public String Nome
+        public string Nome
         {
             get { return this.nome; }
             set { this.nome = value; }
@@ -34,13 +34,13 @@ namespace crud_treinamento
         }
 
 
-        public String Marca
+        public string Marca
         {
             get { return this.marca; }
             set { this.marca = value; }
         }
 
-        public String Tipo
+        public string Tipo
         {
             get { return this.tipo; }
             set { this.tipo = value; }
