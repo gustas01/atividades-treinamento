@@ -29,31 +29,36 @@ namespace crud_treinamento
             sqlConnection = new NpgsqlConnection(connString);
         }
 
+        ~ConexaoPGBD()
+        {
+            sqlConnection.Dispose();
+        }
+
         public bool Open()
         {
             try
             {
-
                 // abre a conexão com o PgSQL
                 sqlConnection.Open();
                 return true;
                 
             }
-            catch (NpgsqlException ex)
+            catch
             {
-                MessageBox.Show("Falha ao se conectar ao banco");
-                return false;
-            }
-            catch (Exception ex)
-            {
-                return false;
+                throw new Exception("Falha no Open");
             }
         }
 
         public void Close()
         {
-            sqlConnection.Close();
-            sqlConnection.Dispose();
+            try
+            {
+                sqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
        
@@ -68,8 +73,8 @@ namespace crud_treinamento
                     return (int)pgsqlcommand.ExecuteScalar();
                 }
             }
-            catch (NpgsqlException ex) {
-                MessageBox.Show("Falha ao inserir produto");
+            catch (Exception ex) 
+            {
                 throw ex;
             }
 

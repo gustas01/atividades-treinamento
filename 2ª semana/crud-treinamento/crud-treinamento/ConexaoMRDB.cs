@@ -34,7 +34,6 @@ namespace crud_treinamento
         ~ConexaoMRDB()
         {
             sqlConnection.Dispose();
-            Console.WriteLine("Destruutor sendo chamado");
         }
 
         public bool Open()
@@ -54,14 +53,9 @@ namespace crud_treinamento
 
         public void Close()
         {
-
             try
             {
                 sqlConnection.Close();
-            }
-            catch (MySqlException ex)
-            {
-                Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {
