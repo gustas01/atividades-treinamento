@@ -21,11 +21,13 @@ namespace crud_treinamento
 
         public void GetTodosRegistros(List<Produto> produtoList)
         {
+            try
+            {
 
-            connectBD.Open();
+                connectBD.Open();
 
-            string cmdSeleciona = "Select P.id, P.nome, P.preco, P.marca, P.tipo, B.alcoolica from produtosbebida B " +
-                "INNER JOIN produtos P ON B.idproduto_fk = P.id order by P.id";
+                string cmdSeleciona = "Select P.id, P.nome, P.preco, P.marca, P.tipo, B.alcoolica from produtosbebida B " +
+                    "INNER JOIN produtos P ON B.idproduto_fk = P.id order by P.id";
 
             DbDataReader reader = connectBD.getAll(cmdSeleciona, produtoList);
 
@@ -41,7 +43,13 @@ namespace crud_treinamento
                         Alcoolica = reader.GetBoolean(5),
                     });
 
-            connectBD.Close();
+            }catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally { 
+                connectBD.Close();
+            }
 
         }
 
@@ -74,43 +82,52 @@ namespace crud_treinamento
 
         public int InserirRegistro(Dictionary<string, string> produto)
         {
+            try
+            {
 
-            string nome;
-            produto.TryGetValue("nome", out nome);
+                string nome;
+                produto.TryGetValue("nome", out nome);
 
-            string preco;
-            produto.TryGetValue("preco", out preco);
+                string preco;
+                produto.TryGetValue("preco", out preco);
 
-            string marca;
-            produto.TryGetValue("marca", out marca);
+                string marca;
+                produto.TryGetValue("marca", out marca);
 
-            string tipo;
-            produto.TryGetValue("tipo", out tipo);
+                string tipo;
+                produto.TryGetValue("tipo", out tipo);
 
-            string alcoolica;
-            produto.TryGetValue("alcoolica", out alcoolica);
+                string alcoolica;
+                produto.TryGetValue("alcoolica", out alcoolica);
 
-            double novoPreco = Convert.ToDouble(preco, System.Globalization.CultureInfo.InvariantCulture);
-            bool novoAlcoolica = Convert.ToBoolean(alcoolica, System.Globalization.CultureInfo.InvariantCulture);
+                double novoPreco = Convert.ToDouble(preco, System.Globalization.CultureInfo.InvariantCulture);
+                bool novoAlcoolica = Convert.ToBoolean(alcoolica, System.Globalization.CultureInfo.InvariantCulture);
 
-            connectBD.Open();
+                connectBD.Open();
 
-            string cmdInserir = String.Format("Insert into produtos(nome, preco, marca, tipo)" +
-                $" values('{nome}', '{novoPreco}', '{marca}', '{tipo}') RETURNING id");
-
-
-            int prodID = connectBD.insereProduto(cmdInserir);
-
-            string cmdInserirProdutoBebida = String.Format("" +
-                        $"insert into produtosbebida(alcoolica, idproduto_fk) values ({novoAlcoolica}, {prodID})");
-
-            connectBD.insereProdutoEspecifico(cmdInserirProdutoBebida);
-
-            connectBD.Close();
+                string cmdInserir = String.Format("Insert into produtos(nome, preco, marca, tipo)" +
+                    $" values('{nome}', '{novoPreco}', '{marca}', '{tipo}') RETURNING id");
 
 
+                int prodID = connectBD.insereProduto(cmdInserir);
 
-            return prodID;
+                string cmdInserirProdutoBebida = String.Format("" +
+                            $"insert into produtosbebida(alcoolica, idproduto_fk) values ({novoAlcoolica}, {prodID})");
+
+                connectBD.insereProdutoEspecifico(cmdInserirProdutoBebida);
+
+
+
+
+                return prodID;
+            }catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connectBD.Close();
+            }
         }
     
 

@@ -8,6 +8,5 @@ namespace crud_treinamento
 {
     public interface IProduto
     {
-
     }
 }

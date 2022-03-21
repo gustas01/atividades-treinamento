@@ -10,15 +10,15 @@ using System.Windows;
 
 namespace crud_treinamento
 {
-    internal class ConexaoMRDB : IConexaoBD
+    public class ConexaoMRDB : IConexaoBD
     {
-        public string serverName = "localhost";
-        public string port = "3306";
-        public string userName = "root";
-        public string password = "mariadb";
-        public string databaseName = "ProdutosMercado";
-        public MySqlConnection sqlConnection = null;
-        public string connString = null;
+        private string serverName = "localhost";
+        private string port = "3306";
+        private string userName = "root";
+        private string password = "mariadb";
+        private string databaseName = "ProdutosMercado";
+        private MySqlConnection sqlConnection = null;
+        private string connString = null;
 
         
 
@@ -26,39 +26,51 @@ namespace crud_treinamento
         public ConexaoMRDB()
         {
             connString = String.Format($"Server={serverName}; Port={port};User Id={userName}; Password={password};Database={databaseName}");
+
+
+            sqlConnection = new MySqlConnection(connString);
         }
 
-        public void Open()
+        ~ConexaoMRDB()
+        {
+            sqlConnection.Dispose();
+            Console.WriteLine("Destruutor sendo chamado");
+        }
+
+        public bool Open()
         {
             try
             {
-                sqlConnection = new MySqlConnection(connString);
-
-                // abre a conexão com o PgSQL e define a instrução SQL
+                // abre a conexão com o PgSQL
                 sqlConnection.Open();
+                return true;
 
             }
-            catch (MySqlException ex)
+            catch
             {
-                MessageBox.Show("Falha ao se conectar ao banco");
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                throw new Exception("Falha no Open");
             }
         }
 
         public void Close()
         {
-            sqlConnection.Dispose();
-            sqlConnection.Close();
+
+            try
+            {
+                sqlConnection.Close();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
 
-        public DbConnection retornaConexao()
-        {
-            return sqlConnection;
-        }
+        
 
         public int insereProduto(string query)
         {
@@ -70,9 +82,8 @@ namespace crud_treinamento
                     return (int)pgsqlcommand.ExecuteScalar();
                 }
             }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Falha ao inserir produto");
                 throw ex;
             }
         }

@@ -13,55 +13,50 @@ namespace crud_treinamento
 {
     public class ConexaoPGBD : IConexaoBD
     {
-        public string serverName = "localhost";
-        public string port = "5432";        
-        public string userName = "postgres";
-        public string password = "postgres";
-        public string databaseName = "ProdutosMercado";
-        public NpgsqlConnection sqlConnection = null;
-        public string connString = null;
-
-        //IDbConnection dbConnection;
+        private string serverName = "localhost";
+        private string port = "5432";
+        private string userName = "postgres";
+        private string password = "postgres";
+        private string databaseName = "ProdutosMercado";
+        private NpgsqlConnection sqlConnection = null;
+        private string connString = null;
 
 
-        public ConexaoPGBD()//receber string no parâmetro do construtor
+        public ConexaoPGBD()
         {
             connString = String.Format($"Server={serverName};Port={port};User Id={userName};Password={password};Database={databaseName};");
 
-            //dbConnection.ConnectionString = connString;
+            sqlConnection = new NpgsqlConnection(connString);
         }
 
-        public void Open()
+        public bool Open()
         {
             try
             {
-                sqlConnection = new NpgsqlConnection(connString);
 
-                // abre a conexão com o PgSQL e define a instrução SQL
+                // abre a conexão com o PgSQL
                 sqlConnection.Open();
+                return true;
                 
             }
             catch (NpgsqlException ex)
             {
                 MessageBox.Show("Falha ao se conectar ao banco");
-                throw ex;
+                return false;
             }
             catch (Exception ex)
             {
-                throw ex;
+                return false;
             }
         }
 
         public void Close()
         {
-            sqlConnection.Dispose();
             sqlConnection.Close();
+            sqlConnection.Dispose();
         }
 
-        public DbConnection retornaConexao () {
-                
-            return sqlConnection;
-        }
+       
 
         public int insereProduto(string query)
         {

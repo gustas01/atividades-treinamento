@@ -23,14 +23,12 @@ namespace crud_treinamento
 
         public void GetTodosRegistros(List<Produto> produtoList)
         {
-            
-            connectBD.Open();
-
-            string cmdSeleciona = "Select P.id, P.nome, P.preco, P.marca, P.tipo, L.cheiro from produtoslimpeza L " +
-                "INNER JOIN produtos P ON L.idproduto_fk = P.id order by P.id";
-
             try
             {
+                connectBD.Open();
+
+                string cmdSeleciona = "Select P.id, P.nome, P.preco, P.marca, P.tipo, L.cheiro from produtoslimpeza L " +
+                    "INNER JOIN produtos P ON L.idproduto_fk = P.id order by P.id";
 
                 DbDataReader reader = connectBD.getAll(cmdSeleciona, produtoList);
 
@@ -48,7 +46,10 @@ namespace crud_treinamento
             }
             catch (Exception ex)
             {
-                throw ex;
+                if(ex.Message == "Falha no Open")                
+                    throw new Exception("Falha ao tentar abrir conexao");
+                else
+                    throw ex;
             }
             finally
             {
@@ -86,39 +87,52 @@ namespace crud_treinamento
 
         public int InserirRegistro(Dictionary<string, string> produto)
         {
-            string nome;
-            produto.TryGetValue("nome", out nome);
+            try
+            {
 
-            string preco;
-            produto.TryGetValue("preco", out preco);
+                string nome; 
+                produto.TryGetValue("nome", out nome);
 
-            string marca;
-            produto.TryGetValue("marca", out marca);
+                string preco;
+                produto.TryGetValue("preco", out preco);
 
-            string tipo;
-            produto.TryGetValue("tipo", out tipo);
+                string marca;
+                produto.TryGetValue("marca", out marca);
 
-            string cheiro;
-            produto.TryGetValue("cheiro", out cheiro);
+                string tipo;
+                produto.TryGetValue("tipo", out tipo);
 
-            double novoPreco = Convert.ToDouble(preco, System.Globalization.CultureInfo.InvariantCulture);
+                string cheiro;
+                produto.TryGetValue("cheiro", out cheiro);
 
-            connectBD.Open();
-
-            string cmdInserir = String.Format("Insert into produtos(nome, preco, marca, tipo)" +
-                $" values('{nome}', '{novoPreco}', '{marca}', '{tipo}') RETURNING id");
+                double novoPreco = Convert.ToDouble(preco, System.Globalization.CultureInfo.InvariantCulture);
 
 
-            int prodID = connectBD.insereProduto(cmdInserir);
+                connectBD.Open();
 
-            cmdInserir = String.Format("" +
-                $"insert into produtoslimpeza(cheiro, idproduto_fk) values ('{cheiro}', {prodID})");
+                string cmdInserir = String.Format("Insert into produtos(nome, preco, marca, tipo)" +
+                    $" values('{nome}', '{novoPreco}', '{marca}', '{tipo}') RETURNING id");
 
-            connectBD.insereProdutoEspecifico(cmdInserir);
 
-            connectBD.Close();
+                int prodID = connectBD.insereProduto(cmdInserir);
 
-            return prodID;
+                cmdInserir = String.Format("" +
+                    $"insert into produtoslimpeza(cheiro, idproduto_fk) values ('{cheiro}', {prodID})");
+
+                connectBD.insereProdutoEspecifico(cmdInserir);
+
+
+                return prodID;
+
+            }catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connectBD.Close();
+
+            }
 
         }
 
